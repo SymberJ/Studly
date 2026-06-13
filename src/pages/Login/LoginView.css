@@ -1,0 +1,341 @@
+/* ══════════════════════════════════════════
+   LOGIN VIEW – pełny redesign
+   Paleta zgodna z resztą aplikacji:
+   --bg-dark: #070714
+   --primary: #a5b4fc  (indigo-300)
+   --glass: rgba(15,23,42,.6)
+   --glass-border: rgba(129,140,248,.25)
+   --muted: #cbd5e1
+   --danger: #fb7185
+   --accent-blue: #38bdf8
+   ══════════════════════════════════════════ */
+
+/* ── Root ─────────────────────────────────── */
+.lv-root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 24px;
+}
+
+/* ── Przełączniki języka i motywu (prawy górny róg kontenera) ── */
+.lv-topbar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Animowane orby ───────────────────────── */
+.lv-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: lv-pulse 8s ease-in-out infinite alternate;
+}
+.lv-orb--1 {
+  width: 500px; height: 500px;
+  top: -120px; left: -100px;
+  background: radial-gradient(circle, rgba(99,102,241,.45) 0%, transparent 70%);
+  animation-delay: 0s;
+}
+.lv-orb--2 {
+  width: 400px; height: 400px;
+  bottom: -80px; right: -80px;
+  background: radial-gradient(circle, rgba(56,189,248,.3) 0%, transparent 70%);
+  animation-delay: 3s;
+}
+.lv-orb--3 {
+  width: 300px; height: 300px;
+  top: 50%; right: 30%;
+  background: radial-gradient(circle, rgba(167,139,250,.2) 0%, transparent 70%);
+  animation-delay: 5s;
+}
+@keyframes lv-pulse {
+  from { transform: scale(1) translate(0, 0); opacity: .7; }
+  to   { transform: scale(1.15) translate(20px, -20px); opacity: 1; }
+}
+
+/* ── Główny wrapper (dwie kolumny) ─────────── */
+.lv-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  max-width: 960px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(129,140,248,.2),
+    0 40px 80px rgba(0,0,0,.6),
+    0 0 60px rgba(99,102,241,.12);
+  animation: lv-enter .6s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes lv-enter {
+  from { opacity: 0; transform: translateY(24px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Lewa kolumna – branding ─────────────── */
+.lv-brand {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 28px;
+  background: linear-gradient(
+    145deg,
+    rgba(99,102,241,.22) 0%,
+    rgba(56,189,248,.1) 50%,
+    rgba(15,23,42,.4) 100%
+  );
+  border-right: 1px solid rgba(129,140,248,.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  gap: 0;
+}
+
+
+
+.lv-brand__title {
+  font-size: 2.3rem;
+  font-weight: 900;
+  margin: 0 0 6px;
+  color: var(--text);
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+.lv-brand__title span {
+  background: linear-gradient(90deg, #a5b4fc, #38bdf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lv-brand__sub {
+  font-size: .82rem;
+  color: var(--text-faint);
+  margin: 0 0 20px;
+  font-weight: 400;
+}
+
+/* Separator */
+.lv-brand__divider {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #38bdf8);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+  opacity: .6;
+}
+
+/* Feature list */
+.lv-features {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 12px;
+  width: 100%;
+}
+.lv-features li {
+  display: flex; align-items: center; gap: 12px;
+  font-size: .85rem;
+  color: var(--text-muted);
+  background: rgba(129,140,248,.06);
+  border: 1px solid rgba(129,140,248,.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  transition: background .2s;
+}
+.lv-features li:hover {
+  background: rgba(129,140,248,.12);
+}
+.lv-features li i {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: rgba(129,140,248,.15);
+  border: 1px solid rgba(129,140,248,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  color: #a5b4fc;
+  flex-shrink: 0;
+}
+
+/* ── Prawa kolumna – karta logowania ──────── */
+/* ── Motyw JASNY: lewy panel jako żywy gradient marki, by logo i lista były czytelne ── */
+[data-theme="light"] .lv-brand {
+  background: linear-gradient(145deg, #6366f1 0%, #4f46e5 52%, #38bdf8 100%);
+  border-right-color: rgba(255, 255, 255, 0.18);
+}
+[data-theme="light"] .lv-brand__title { color: #ffffff; }
+[data-theme="light"] .lv-brand__title span {
+  background: linear-gradient(90deg, #c7d2fe, #bae6fd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .lv-brand__sub { color: rgba(255, 255, 255, 0.85); }
+[data-theme="light"] .lv-brand__divider {
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 0.85;
+}
+[data-theme="light"] .lv-features li {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+[data-theme="light"] .lv-features li:hover { background: rgba(255, 255, 255, 0.2); }
+[data-theme="light"] .lv-features li i {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.lv-card {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 40px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.lv-card__header { margin-bottom: 32px; }
+
+.lv-card__title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: var(--text);
+  letter-spacing: -.5px;
+}
+
+.lv-card__desc {
+  font-size: .85rem;
+  color: var(--text-faint);
+  margin: 0;
+}
+
+/* ── Formularz ─────────────────────────────── */
+.lv-form { display: flex; flex-direction: column; gap: 18px; }
+
+.lv-field { display: flex; flex-direction: column; gap: 7px; }
+
+.lv-label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: .4px;
+  display: flex; align-items: center; gap: 5px;
+}
+.lv-label i { font-size: 13px; color: var(--primary); }
+
+.lv-input {
+  width: 100%;
+  background: var(--glass);
+  border: 1px solid rgba(129,140,248,.18);
+  border-radius: 12px;
+  padding: 13px 16px;
+  color: var(--text);
+  font-size: .95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  box-sizing: border-box;
+}
+.lv-input::placeholder { color: var(--text-faint); }
+.lv-input:focus {
+  border-color: rgba(129,140,248,.6);
+  background: var(--glass);
+  box-shadow: 0 0 0 3px rgba(129,140,248,.12);
+}
+
+/* Password field */
+.lv-input-wrap { position: relative; }
+.lv-input--pass { padding-right: 46px; }
+.lv-eye {
+  position: absolute;
+  right: 14px; top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none; padding: 0;
+  color: var(--text-faint);
+  cursor: pointer; font-size: 16px;
+  transition: color .2s;
+  display: flex; align-items: center;
+}
+.lv-eye:hover { color: var(--primary); }
+
+/* Error state */
+.lv-field--err .lv-input {
+  border-color: rgba(251,113,133,.5);
+  box-shadow: 0 0 0 3px rgba(251,113,133,.08);
+}
+
+/* Error message */
+.lv-error {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
+  background: rgba(251,113,133,.08);
+  border: 1px solid rgba(251,113,133,.2);
+  border-radius: 10px;
+  color: #fb7185;
+  font-size: .82rem;
+  font-weight: 500;
+}
+.lv-error i { font-size: 15px; flex-shrink: 0; }
+
+/* Submit button */
+.lv-submit {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  border: none; border-radius: 12px;
+  color: var(--on-accent); font-size: .95rem; font-weight: 700;
+  font-family: inherit; cursor: pointer;
+  margin-top: 4px;
+  transition: filter .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 4px 20px rgba(99,102,241,.35);
+}
+.lv-submit:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(99,102,241,.5);
+}
+.lv-submit:active { transform: translateY(0); }
+
+/* Hint */
+.lv-hint {
+  display: flex; align-items: center; gap: 6px;
+  margin: 20px 0 0;
+  font-size: .75rem;
+  color: var(--text-faint);
+}
+.lv-hint i { font-size: 13px; color: rgba(165,180,252,.4); }
+
+/* ── Responsywność ─────────────────────────── */
+@media (max-width: 640px) {
+  .lv-wrap { flex-direction: column; max-width: 420px; }
+  .lv-brand {
+    padding: 32px 28px 24px;
+    border-right: none;
+    border-bottom: 1px solid rgba(129,140,248,.15);
+  }
+  .lv-brand__title { font-size: 1.7rem; }
+  .lv-features { display: none; }
+  .lv-card { padding: 28px; }
+}

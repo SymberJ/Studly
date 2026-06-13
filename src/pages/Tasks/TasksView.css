@@ -1,0 +1,360 @@
+/* ══════════════════════════════════════════
+   TASKS VIEW
+══════════════════════════════════════════ */
+@keyframes tvAppear {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* STATS ─────────────────────────────────── */
+.tv-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.tv-stat {
+  background: var(--surface-soft);
+  border: 1px solid rgba(129,140,248,0.12);
+  border-radius: 14px;
+  padding: 14px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tv-stat__val { font-size: 24px; font-weight: 800; color:var(--text); line-height:1; }
+.tv-stat__lbl { font-size:10px; color:var(--muted); opacity:.65; font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
+.tv-stat--bar   { justify-content:center; gap:8px; }
+.tv-stat__track { height:4px; background:var(--surface-hover); border-radius:2px; overflow:hidden; }
+.tv-stat__fill  { height:100%; background:var(--success); border-radius:2px; transition:width .6s ease; }
+
+/* LAYOUT ────────────────────────────────── */
+.tv-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* KLUCZOWE: stała wysokość całego layoutu — bez tego dzieci rosną w nieskończoność */
+  height: 680px;
+  gap: 16px;
+}
+
+.tv-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* KLUCZOWE: min-height:0 żeby flex child mógł się skurczyć */
+  min-height: 0;
+  height: 100%;
+}
+
+/* PRAWA kolumna */
+.tv-col--right .tv-panel--todo {
+  flex: 1;
+  min-height: 0;
+}
+
+/* PANELS ────────────────────────────────── */
+.tv-panel {
+  background: var(--glass);
+  border: 1px solid rgba(129,140,248,0.15);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: tvAppear .3s ease-out both;
+  min-height: 0;
+}
+.tv-panel:hover { border-color: rgba(129,140,248,0.25); }
+
+/* Formularz — wysokość dopasowana, nie rośnie */
+.tv-panel--form {
+  flex-shrink: 0;
+}
+
+/* Ukończone — zajmuje resztę lewej kolumny */
+.tv-panel--done {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  opacity: .88;
+}
+
+/* Todo — PEŁNA wysokość prawej kolumny, scroll wewnątrz */
+.tv-panel--todo {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.tv-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.tv-panel__title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.2px;
+}
+
+/* SCROLL ────────────────────────────────── */
+.tv-scroll {
+  flex: 1;
+  /* KLUCZOWE: overflow-y:auto + min-height:0 = scroll działa */
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(129,140,248,.2) transparent;
+}
+.tv-scroll::-webkit-scrollbar       { width:4px; }
+.tv-scroll::-webkit-scrollbar-track { background:transparent; }
+.tv-scroll::-webkit-scrollbar-thumb { background:rgba(129,140,248,.25); border-radius:2px; }
+
+/* TASK CARDS ────────────────────────────── */
+.tc {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 13px;
+  background: var(--surface-soft);
+  border: 1px solid rgba(129,140,248,.1);
+  border-left: 3px solid transparent;
+  border-radius: 0 12px 12px 0;
+  transition: background .15s;
+  animation: tvAppear .2s ease-out both;
+  /* nie ściskaj kart */
+  flex-shrink: 0;
+}
+.tc:hover                 { background: rgba(129,140,248,.07); }
+.tc--done                 { opacity:.5; border-left:1px solid rgba(129,140,248,.1)!important; border-radius:12px!important; }
+
+.tc__check {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(129,140,248,0.4);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: background .15s, border-color .15s;
+  position: relative;
+}
+.tc__check:hover { border-color: rgba(129,140,248,0.8); }
+.tc__check:checked {
+  background: var(--success);
+  border-color: var(--success);
+}
+.tc__check:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px; top: 1px;
+  width: 5px; height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.tc__body  { flex:1; min-width:0; display:flex; flex-direction:column; }
+.tc__title { font-size:13px; color:var(--text); line-height:1.45; margin:0; word-break:break-word; }
+.tc--done .tc__title { text-decoration:line-through; color:var(--muted); }
+
+.tc__meta  { display:flex; align-items:center; gap:6px; margin-top:6px; flex-wrap:wrap; }
+.tc__badge { font-size:10px; font-weight:700; padding:2px 7px; border-radius:6px; }
+.tc__badge--high   { background:rgba(251,113,133,.18); color:#fb7185; }
+.tc__badge--medium { background:rgba(251,191, 36,.18); color:#fbbf24; }
+.tc__badge--low    { background:rgba( 52,211,153,.18); color:#34d399; }
+.tv-select option { background: var(--surface-solid); color: var(--text); }.tc__pill { font-size:10px; color:var(--muted); opacity:.55; display:flex; align-items:center; gap:3px; }
+.tc__pill .ti { font-size:11px; }
+
+.tc__actions { display:flex; align-items:center; gap:4px; flex-shrink:0; }
+.tc__btn {
+  width:28px; height:28px; border-radius:8px;
+  border:1px solid rgba(129,140,248,.15);
+  background:var(--surface-soft);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:var(--muted);
+  transition:background .15s, color .15s, border-color .15s;
+  flex-shrink:0;
+}
+.tc__btn .ti { font-size:14px; }
+.tc__btn--edit:hover { background:rgba(129,140,248,.15); color:#a5b4fc; border-color:rgba(129,140,248,.3); }
+.tc__btn--save:hover { background:rgba( 52,211,153,.15); color:#34d399; border-color:rgba(52,211,153,.3); }
+.tc__btn--del:hover  { background:rgba(251,113,133,.15); color:#fb7185; border-color:rgba(251,113,133,.3); }
+
+.tc__edit-input {
+  width:100%; background:var(--surface-soft);
+  border:1px solid rgba(129,140,248,.3); border-radius:8px;
+  color:var(--text); font-size:13px; padding:4px 8px; outline:none; font-family:inherit;
+}
+
+/* DOTS & COUNT ─────────────────────────── */
+.tv-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.tv-dot--todo { background:#a5b4fc; }
+.tv-dot--done { background:#34d399; }
+.tv-dot--form { background:#a5b4fc; }
+.tv-count { font-size:11px; font-weight:700; background:rgba(129,140,248,.15); color:#a5b4fc; padding:2px 8px; border-radius:20px; }
+
+/* FORM ELEMENTS ─────────────────────────── */
+.tv-textarea {
+  width:100%; min-height:110px;
+  background:var(--surface-soft); border:1px solid rgba(129,140,248,.18);
+  border-radius:12px; color:var(--text); font-size:14px;
+  padding:12px 14px; resize:none; outline:none; font-family:inherit;
+  transition:border-color .18s;
+}
+.tv-textarea:focus { border-color:rgba(129,140,248,.4); }
+
+.tv-priority { display:flex; gap:8px; }
+.tv-prio-btn {
+  flex:1; min-height:44px; padding:0 6px; border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid transparent; font-size:12px; font-weight:700;
+  cursor:pointer; transition:all .15s;
+  background:var(--surface-soft); color:var(--muted); font-family:inherit;
+}
+.tv-prio-btn--high   { border-color:rgba(251,113,133,.2); }
+.tv-prio-btn--medium { border-color:rgba(251,191, 36,.2); }
+.tv-prio-btn--low    { border-color:rgba( 52,211,153,.2); }
+.tv-prio-btn--high.is-active   { background:rgba(251,113,133,.2); color:#fb7185; border-color:#fb7185; }
+.tv-prio-btn--medium.is-active { background:rgba(251,191, 36,.2); color:#fbbf24; border-color:#fbbf24; }
+.tv-prio-btn--low.is-active    { background:rgba( 52,211,153,.2); color:#34d399; border-color:#34d399; }
+
+.tv-select {
+  width:100%; background:var(--surface-soft);
+  border:1px solid rgba(129,140,248,.18); border-radius:10px;
+  color:var(--muted); font-size:13px; padding:0 12px;
+  min-height:44px; height:44px; box-sizing:border-box;
+  cursor:pointer; font-family:inherit; outline:none;
+}
+/* Stylizacja opcji listy rozwijanej */
+.tv-select option {
+  background: var(--surface-solid);
+  color: var(--text);
+}
+.tv-sort {
+  background:var(--surface-soft); border:1px solid rgba(129,140,248,.15);
+  border-radius:8px; color:var(--muted); font-size:11px;
+  padding:4px 8px; cursor:pointer; font-family:inherit; outline:none;
+}
+.tv-sort option {
+  background: var(--surface-solid);
+  color: var(--text);
+}
+
+.tv-date-row   { display:flex; align-items:center; gap:10px; }
+.tv-date-label { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); cursor:pointer; white-space:nowrap; }
+.tv-date-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px; height: 16px;
+  border-radius: 5px;
+  border: 2px solid rgba(129,140,248,0.35);
+  background: transparent;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+  position: relative;
+  flex-shrink: 0;
+  display: inline-block;
+}
+.tv-date-label input[type="checkbox"]:hover { border-color: rgba(129,140,248,0.7); }
+.tv-date-label input[type="checkbox"]:checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.tv-date-label input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 3px; top: 0px;
+  width: 5px; height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.tv-date-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-soft);
+  border: 1px solid rgba(129,140,248,.18);
+  border-radius: 10px;
+  padding: 0 12px;
+  height: 42px;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+.tv-date-wrap.is-err  { border-color:var(--danger); }
+.tv-date-input { background:transparent; border:none; color:var(--text); font-size:13px; outline:none; flex:1; font-family:inherit; }
+
+/* Stylizacja samej ikony jako przycisku wywołania kalendarza */
+.tv-date-wrap .ti-calendar {
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.tv-date-wrap .ti-calendar:hover {
+  color: var(--primary) !important;
+}
+
+.tv-submit {
+  width:100%; padding:11px; background:rgba(99,102,241,.85);
+  border:none; border-radius:12px; color:var(--on-accent); font-size:13px;
+  font-weight:700; cursor:pointer; display:flex; align-items:center;
+  justify-content:center; gap:7px; transition:background .18s, transform .15s; font-family:inherit;
+}
+.tv-submit .ti { font-size:15px; }
+.tv-submit:hover:not(:disabled) { background:rgba(99,102,241,1); transform:translateY(-1px); }
+.tv-submit:disabled { opacity:.35; cursor:not-allowed; }
+
+.tv-err   { font-size:11px; color:var(--danger); }
+.tv-empty { text-align:center; padding:28px 0; color:var(--muted); font-size:14px; opacity:.45; margin:0; }
+
+/* RESPONSIVE ────────────────────────────── */
+@media (max-width:900px) {
+  .tv-layout { grid-template-columns:1fr; height:auto; }
+  .tv-col { height:auto; }
+  .tv-col--right { order: -1; }
+  .tv-stats  { grid-template-columns:1fr 1fr; }
+  .tv-col--right .tv-panel--todo { min-height:360px; }
+}
+/* ─── Przycisk "Usuń wszystkie" (ukończone) ─── */
+.tv-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(251, 113, 133, 0.08);
+  border: 1px solid rgba(251, 113, 133, 0.25);
+  border-radius: 8px;
+  color: #fb7185;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.12s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.tv-clear-btn:hover {
+  background: rgba(251, 113, 133, 0.18);
+  border-color: rgba(251, 113, 133, 0.5);
+  transform: translateY(-1px);
+}
+.tv-clear-btn i { font-size: 13px; }

@@ -1,0 +1,63 @@
+.lang-toggle {
+  height: 38px;
+  padding: 0 11px;
+  border-radius: 11px;
+  border: 1px solid var(--glass-border);
+  background: var(--surface-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: inherit;
+  perspective: 260px;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.18s;
+}
+.lang-toggle:hover {
+  background: rgba(129, 140, 248, 0.12);
+  border-color: rgba(129, 140, 248, 0.45);
+  color: var(--primary);
+}
+.lang-toggle:active { transform: scale(0.92); }
+
+.lang-toggle__inner {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lang-toggle__flag {
+  width: 20px;
+  height: 14px;
+  border-radius: 3px;
+  overflow: hidden;
+  display: block;
+  flex: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+  transform-origin: center;
+  backface-visibility: hidden;
+  animation: langFlagFlip 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform, opacity;
+}
+.lang-toggle__flag svg { display: block; width: 100%; height: 100%; }
+
+.lang-toggle__code {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  animation: langCodeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes langFlagFlip {
+  from { opacity: 0; transform: rotateY(-90deg) scale(0.85); }
+  60%  { opacity: 1; }
+  to   { opacity: 1; transform: rotateY(0deg) scale(1); }
+}
+@keyframes langCodeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-toggle__flag, .lang-toggle__code { animation: none; }
+}

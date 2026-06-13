@@ -1,0 +1,423 @@
+
+
+@keyframes noteFadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.note-unique-container { 
+  display: grid !important; 
+  grid-template-columns: 280px 1fr !important; 
+  gap: 25px !important; 
+  height: auto !important;
+  min-height: 75vh !important;
+  align-items: start !important;
+  animation: noteFadeUp 0.5s ease-out forwards;
+}
+
+.note-unique-sidebar {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 15px !important;
+}
+
+.note-unique-add-box {
+  display: flex !important; 
+  gap: 8px !important; 
+  background: var(--surface-hover) !important;
+  padding: 12px !important; 
+  border-radius: 16px !important; 
+  border: 1px solid var(--glass-border) !important;
+  transition: all 0.3s ease;
+}
+
+.note-unique-add-box:focus-within {
+  border-color: var(--primary) !important;
+  background: var(--surface-hover) !important;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1);
+}
+
+.note-unique-add-box input {
+  flex: 1 !important; 
+  background: transparent !important; 
+  border: none !important; 
+  color: var(--text) !important; 
+  outline: none !important; 
+  font-size: 13px !important;
+}
+.note-unique-add-box input::placeholder { color: var(--text-muted) !important; opacity: 1 !important; }
+
+.note-unique-add-box button {
+  background: var(--primary) !important; 
+  border: none !important; 
+  color: var(--on-accent) !important; 
+  padding: 6px 14px !important; 
+  border-radius: 10px !important; 
+  font-weight: 700 !important; 
+  cursor: pointer !important;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.note-unique-add-box button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.SBR-wrapper {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-bottom: 6px !important;
+}
+
+.SBR-icon {
+  position: absolute !important;
+  left: 18px !important;
+  z-index: 5 !important;
+  pointer-events: none !important;
+  display: flex !important;
+  align-items: center !important;
+  color: var(--muted);
+  transition: 0.3s;
+}
+
+.SBR-tab {
+  flex: 1 !important;
+  width: 100% !important;
+  padding: 14px 40px 14px 52px !important; 
+  text-align: left !important; 
+  background: var(--surface-soft) !important; 
+  border: 1px solid var(--glass-border) !important; 
+  color: var(--muted) !important; 
+  border-radius: 14px !important; 
+  cursor: pointer !important; 
+  font-weight: 600 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.SBR-tab:hover:not(.is-active) {
+  background: var(--surface-hover) !important;
+  border-color: var(--border-soft) !important;
+  color: var(--text) !important;
+  padding-left: 58px !important;
+}
+
+.SBR-tab.is-active {
+  background: linear-gradient(90deg, rgba(129, 140, 248, 0.2), transparent) !important;
+  border: 1px solid var(--primary) !important;
+  color: var(--text) !important;
+  box-shadow: 0 4px 15px rgba(129, 140, 248, 0.1);
+}
+
+.SBR-tab.is-active + .SBR-icon {
+  color: var(--primary) !important;
+}
+
+.SBR-del {
+  position: absolute !important;
+  right: 12px !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  color: #ff4d4d !important;
+  border: none !important;
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.SBR-wrapper:hover .SBR-del {
+  opacity: 1;
+}
+
+.btn-secondary {
+  background: rgba(239, 68, 68, 0.08) !important;
+  backdrop-filter: blur(8px) !important;
+  color: #ff8080 !important;
+  border: 1px solid rgba(239, 68, 68, 0.2) !important;
+  padding: 10px 25px !important;
+  border-radius: 12px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin-right: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.btn-secondary:hover {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #ff4d4d !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.EDT-box {
+  background: var(--glass) !important; 
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--glass-border) !important;
+  padding: 30px !important; 
+  border-radius: 24px !important; 
+  display: flex !important; 
+  flex-direction: column !important; 
+  min-height: 450px !important; 
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3) !important;
+}
+
+.EDT-header {
+  display: flex !important;
+  justify-content: space-between !important; 
+  align-items: center !important;
+  margin-bottom: 20px !important;
+}
+
+.EDT-header h3 {
+  margin: 0 !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  background: white;
+  -webkit-background-clip: text;
+  background-clip: text; 
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.EDT-date {
+  color: var(--muted) !important;
+  font-size: 13px !important;
+  background: var(--surface-hover) !important;
+  padding: 6px 14px !important;
+  border-radius: 10px !important;
+}
+
+.EDT-textarea {
+  flex: 1 !important; 
+  width: 100% !important;
+  background: var(--surface-soft) !important;
+  border: 1px solid var(--glass-border) !important; 
+  color: var(--text) !important; 
+  padding: 20px !important;
+  border-radius: 16px !important; 
+  resize: none !important; 
+  outline: none !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  transition: border-color 0.3s;
+}
+
+.EDT-textarea:focus {
+  border-color: rgba(129, 140, 248, 0.5) !important;
+}
+
+.EDT-save {
+  background: var(--success) !important; 
+  color: var(--on-accent) !important;
+  border: none !important; 
+  padding: 10px 25px !important; 
+  border-radius: 12px !important; 
+  font-weight: 700 !important; 
+  cursor: pointer !important;
+  margin-top: 20px !important;
+  align-self: flex-end !important;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
+
+.EDT-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.note-unique-history { 
+  display: flex !important; 
+  flex-direction: column !important; 
+  gap: 15px !important;
+  margin-top: 30px !important;
+}
+
+.note-unique-history-title {
+  font-size: 13px !important;
+  color: var(--primary) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  margin: 10px 0 10px 5px !important;
+  font-weight: 800 !important;
+  opacity: 0.8;
+}
+
+.note-unique-past-note {
+  background: var(--surface-soft) !important; 
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid var(--glass-border) !important;
+  padding: 24px !important; 
+  border-radius: 20px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  animation: noteFadeUp 0.4s ease-out both;
+}
+
+.note-unique-past-note:hover {
+  background: var(--surface-hover) !important;
+  border-color: rgba(129, 140, 248, 0.3) !important;
+  transform: translateX(8px) !important;
+}
+
+.note-unique-past-note header {
+  display: flex !important;
+  justify-content: space-between !important; 
+  align-items: center !important;
+  margin-bottom: 12px !important;
+  border-bottom: 1px solid var(--border-soft) !important;
+  padding-bottom: 10px !important;
+}
+
+.note-past-actions {
+  display: flex !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+}
+.note-past-actions button, 
+.note-past-actions .btn-pdf {
+  background: var(--surface-hover) !important; 
+  border: 1px solid var(--border-soft) !important; 
+  padding: 6px 12px !important;
+  font-size: 12px !important; 
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: 0.2s !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+}
+
+.note-past-actions .btn-edit { 
+  color: #28a745 !important; 
+}
+
+.note-past-actions .btn-delete { 
+  color: #ff4d4d !important; 
+}
+
+.note-past-actions .btn-pdf {
+  color: #4a90e2 !important;
+}
+
+.note-past-actions button:hover,
+.note-past-actions .btn-pdf:hover {
+  background: var(--surface-hover) !important;
+  transform: translateY(-1px);
+}
+
+.notesview-header {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 22px 28px;
+}
+
+.notesview-header__title {
+  margin: 0 0 6px 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--text);
+  max-width: 78ch;
+}
+
+.notesview-header__subtitle {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.35;
+  max-width: 78ch;
+}
+
+@media (max-width: 992px) {
+  .note-unique-container { 
+    grid-template-columns: 1fr !important; 
+    min-height: 0 !important;
+    height: auto !important; 
+  }
+}
+/* ════════════════════════════════════════════
+   JASNY MOTYW — widoczność notatek (spójnie z banerem edytora)
+   ════════════════════════════════════════════ */
+
+/* Tytuł przedmiotu w banerze edytora — był biały (clip), niewidoczny na jasnym */
+[data-theme="light"] .EDT-header h3 {
+  background: none !important;
+  -webkit-text-fill-color: var(--text) !important;
+  color: var(--text) !important;
+}
+
+/* „Nowy przedmiot" + notatki na dole — to samo frosted-szkło co edytor */
+[data-theme="light"] .note-unique-add-box,
+[data-theme="light"] .note-unique-past-note {
+  background: var(--glass) !important;
+  border-color: rgba(99, 102, 241, 0.24) !important;
+}
+[data-theme="light"] .note-unique-past-note:hover {
+  border-color: rgba(99, 102, 241, 0.45) !important;
+}
+
+/* Lista przedmiotów — widoczne tło i ciemny tekst (zamiast bladego surface-soft + muted) */
+[data-theme="light"] .SBR-tab:not(.is-active) {
+  background: var(--glass) !important;
+  border-color: rgba(99, 102, 241, 0.24) !important;
+  color: var(--text) !important;
+}
+[data-theme="light"] .SBR-tab:hover:not(.is-active) {
+  background: rgba(99, 102, 241, 0.10) !important;
+  border-color: rgba(99, 102, 241, 0.45) !important;
+  color: var(--text) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WYŚWIETLANIE NOTATKI SFORMATOWANEJ (historia).
+   Typografia spójna z edytorem (NoteEditor.css).
+═══════════════════════════════════════════════════════════ */
+.note-rich {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+  word-break: break-word;
+}
+.note-rich h1 {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin: 2px 0 6px;
+  color: var(--text);
+}
+.note-rich h2 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 2px 0 5px;
+  color: var(--primary);
+}
+.note-rich p { margin: 0 0 6px; }
+.note-rich ul,
+.note-rich ol { margin: 0 0 6px; padding-left: 20px; }
+.note-rich li { margin: 2px 0; }
+.note-rich blockquote {
+  margin: 0 0 6px;
+  padding-left: 12px;
+  border-left: 3px solid rgba(129, 140, 248, 0.4);
+  color: var(--text-muted);
+}
+/* Skrócony podgląd długiej notatki — czysty tekst, bez znaczników. */
+.note-rich--clamp { white-space: pre-wrap; }

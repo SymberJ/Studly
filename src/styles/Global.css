@@ -1,0 +1,422 @@
+:root, [data-theme="dark"] {
+  --bg: #070714;
+  --bg-grad:
+    radial-gradient(circle at 10% 40%, rgba(106, 17, 141, 0.55), transparent 45%),
+    radial-gradient(circle at 85% 20%, rgba(11, 60, 122, 0.6), transparent 50%),
+    radial-gradient(circle at 95% 70%, rgba(124, 46, 23, 0.45), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(7, 7, 20, 1), #070714);
+  --bg-dark: #070714;
+  --glass: rgba(15, 23, 42, 0.6);
+  --surface-solid: #0f172a;
+  --surface-soft: rgba(255, 255, 255, 0.04);
+  --surface-hover: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(129, 140, 248, 0.25);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --text: #ffffff;
+  --text-muted: #cbd5e1;
+  --text-faint: rgba(148, 163, 184, 0.6);
+  --on-accent: #ffffff;
+  --primary: #a5b4fc;
+  --muted: #cbd5e1;
+  --danger: #fb7185;
+  --accent-blue: #38bdf8;
+  --success: #34d399;
+}
+
+/* ===== JASNY MOTYW ===== */
+[data-theme="light"] {
+  --bg: #bfc9e4;
+  --bg-grad:
+    radial-gradient(circle at 6% 10%, rgba(139, 134, 222, 0.55), transparent 55%),
+    radial-gradient(circle at 94% 6%, rgba(116, 176, 224, 0.50), transparent 56%),
+    radial-gradient(circle at 90% 94%, rgba(226, 170, 150, 0.42), transparent 52%),
+    radial-gradient(circle at 10% 92%, rgba(158, 142, 222, 0.48), transparent 56%),
+    linear-gradient(160deg, #ccd4ec 0%, #bcc6e0 52%, #cbc1df 100%);
+  --bg-dark: #bfc9e4;
+  --glass: rgba(224, 229, 244, 0.62);
+  --surface-solid: #ffffff;
+  --surface-soft: rgba(40, 45, 95, 0.06);
+  --surface-hover: rgba(40, 45, 95, 0.11);
+  --glass-border: rgba(99, 102, 241, 0.20);
+  --border-soft: rgba(40, 45, 95, 0.12);
+  --text: #25304d;
+  --text-muted: #54607c;
+  --text-faint: rgba(84, 96, 124, 0.8);
+  --on-accent: #ffffff;
+  --primary: #4f46e5;
+  --muted: #54607c;
+  --danger: #e11d48;
+  --accent-blue: #0369a1;
+  --success: #059669;
+}
+
+/* ── Jasny motyw: dopracowanie kluczowych powierzchni ── */
+/* Pasek nawigacji — mrożone, lekko stonowane szkło (nie biel) */
+[data-theme="light"] .main-panel {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(219, 225, 245, 0.72) 100%);
+  border-color: rgba(99, 102, 241, 0.18);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 10px 30px rgba(30, 41, 90, 0.12);
+}
+[data-theme="light"] .main-panel::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, transparent 45%);
+}
+[data-theme="light"] .main-panel__divider {
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.20), transparent);
+}
+
+/* Banery nagłówkowe kategorii — mrożona biel pod tintem, by nie zlewały się z tłem */
+[data-theme="light"] .section-header-glass,
+[data-theme="light"] .dash-greeting {
+  background:
+    linear-gradient(120deg, rgba(99, 102, 241, 0.20) 0%, rgba(56, 189, 248, 0.12) 55%, rgba(255, 255, 255, 0) 100%),
+    rgba(224, 229, 244, 0.62);
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+/* Delikatne uniesienie kart, by „pływały" nad gradientem (zamiast płaskiej bieli) */
+[data-theme="light"] .dash-metric-card,
+[data-theme="light"] .dash-tile,
+[data-theme="light"] .dash-greeting,
+[data-theme="light"] .dash-quick-btn,
+[data-theme="light"] .section-header-glass,
+[data-theme="light"] .admin-content,
+[data-theme="light"] .admin-stat-card,
+[data-theme="light"] .admin-panel-box,
+[data-theme="light"] .profile-card,
+[data-theme="light"] .lv-card,
+[data-theme="light"] .sv-plan-card,
+[data-theme="light"] .sv-add-card,
+[data-theme="light"] .cal-glass-header,
+[data-theme="light"] .cal-main-container {
+  box-shadow: 0 6px 22px rgba(30, 41, 90, 0.08);
+}
+
+/* Gradient marki — jedno źródło prawdy (przyciski, akcenty, logo). */
+:root { --brand-grad: linear-gradient(135deg, #6366f1, #38bdf8); }
+
+* { box-sizing: border-box; }
+
+/* Uwaga: NIE ustawiamy tu overflow (nawet clip) — overflow na html/body/#root
+   psuje position: sticky u potomków (np. okno agenta na Dashboardzie) w Safari.
+   Poziomy nadmiar eliminujemy u źródła (nagłówek) + max-width poniżej. */
+html, body, #root {
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image: var(--bg-grad);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: background-color 0.4s ease, color 0.25s ease;
+}
+
+.main-wrapper { 
+  width: 100%;
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 20px 16px; 
+}
+/* ===== PAGE TRANSITION ANIMATION ===== */
+.main-content {
+  animation: pageEnter 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes pageEnter {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Tabler Icons CDN — upewnij się że masz go w index.html */
+/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"> */
+
+/* ===== MISC SHARED ===== */
+:root {
+  --accent-blue: #38bdf8;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   APP SHELL — współdzielony layout wszystkich kategorii.
+   Przeniesione tutaj z LoginView.css: te klasy są używane przez
+   widoki Zadań, Notatek, Planu, Ocen, Prowadzących, Plików i Kalendarza,
+   więc ich miejsce jest w arkuszu globalnym, a nie w komponencie logowania.
+═══════════════════════════════════════════════════════════════ */
+
+/* Pionowy układ sekcji na stronie. gap: 22px = odstęp pod banerem
+   taki sam jak w Dashboardzie (dlatego baner nie potrzebuje już
+   własnego margin-bottom — patrz reguła zerująca niżej). */
+.view-section-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform, opacity;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* Alias używany przez animacje etapowe (np. lista notatek). Wcześniej nie był
+   zdefiniowany, przez co te animacje nie działały. */
+@keyframes taskAppear {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* Górny baner informacyjny każdej kategorii.
+   min-height: 122px wyrównuje go do wysokości baneru powitalnego
+   na Dashboardzie (.dash-greeting), a align-items: center wyśrodkowuje
+   treść w pionie, wypełniając odzyskaną przestrzeń. */
+.section-header-glass {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  min-height: 122px;
+  padding: 22px 28px;
+  background: linear-gradient(
+    120deg,
+    rgba(99,102,241,.13) 0%,
+    rgba(56,189,248,.07) 60%,
+    transparent 100%
+  );
+  border: 1px solid rgba(129,140,248,.18);
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+/* Blask w tle */
+.section-header-glass::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 0;
+  transform: translateY(-50%);
+  width: 100%; height: 200%;
+  background: radial-gradient(
+    ellipse 55% 80% at 20% 50%,
+    rgba(99,102,241,.15) 0%,
+    rgba(56,189,248,.06) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.section-header-glass__left {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Data nad tytułem — taki sam styl jak .dash-greeting__date w Dashboardzie. */
+.section-header-glass__date {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.section-header-glass__title {
+  font-size: 28px;
+  font-weight: 900;
+  margin: 0;
+  color: var(--text);
+  letter-spacing: -0.8px;
+  line-height: 1.1;
+}
+
+.section-header-glass__subtitle {
+  font-size: 13px;
+  color: var(--text-faint);
+  margin: 0;
+  font-weight: 400;
+}
+
+.section-header-glass__right {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.section-content-glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 30px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.2);
+  min-height: 550px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Kalendarz ma własny baner (.cal-glass-header, definiowany w CalendarView.css) —
+   wyrównujemy tylko jego wysokość do reszty. */
+.cal-glass-header {
+  min-height: 122px;
+}
+
+/* Baner nagłówkowy nie powinien dokładać własnego margin-bottom do flex `gap`
+   kontenera .view-section-wrap (inaczej przerwa pod nim robi się większa niż
+   w Dashboardzie). Selektor z dwiema klasami ma wyższą specyficzność niż reguły
+   w plikach poszczególnych stron, więc działa niezależnie od kolejności CSS. */
+.view-section-wrap > .section-header-glass,
+.view-section-wrap > .cal-glass-header {
+  margin-bottom: 0;
+}
+
+/* ===== SPINNER / LOADING ===== */
+.full-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(129,140,248,.2);
+  border-top-color: #818cf8;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== ERROR BOUNDARY ===== */
+.error-boundary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--bg);
+}
+.error-boundary__card {
+  text-align: center;
+  max-width: 420px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  padding: 40px;
+}
+.error-boundary__icon {
+  font-size: 48px;
+  color: #f59e0b;
+  display: block;
+  margin-bottom: 16px;
+}
+.error-boundary__card h2 {
+  color: var(--text);
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+.error-boundary__card p {
+  color: var(--text-faint);
+  font-size: 13px;
+  margin: 0 0 24px;
+  word-break: break-word;
+}
+.error-boundary__btn {
+  padding: 10px 24px;
+  border-radius: 12px;
+  background: rgba(99,102,241,.25);
+  border: 1px solid rgba(129,140,248,.4);
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Baner Kalendarza — to samo dopracowanie co inne nagłówki kategorii */
+[data-theme="light"] .cal-glass-header {
+  background:
+    linear-gradient(120deg, rgba(99, 102, 241, 0.20) 0%, rgba(56, 189, 248, 0.12) 55%, rgba(255, 255, 255, 0) 100%),
+    rgba(224, 229, 244, 0.62);
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+/* Przyciski szybkich akcji na Dashboardzie — wyraźniejsze tło i obramowanie */
+[data-theme="light"] .dash-quick-btn {
+  background: var(--glass);
+  border-color: rgba(99, 102, 241, 0.30);
+  box-shadow: 0 4px 14px rgba(30, 41, 90, 0.07);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WYKOŃCZENIE GLOBALNE — dostępność, fokus, scrollbar.
+   Dodane jako warstwa „polish": nie zmienia layoutu, podnosi jakość.
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Widoczny fokus klawiatury w całej aplikacji ──
+   Spójny pierścień marki dla elementów interaktywnych. Używamy :focus-visible,
+   więc myszka nie wywołuje obwódki — tylko nawigacja klawiaturą. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* ── Pasek przewijania — dyskretny, w tonacji marki ──
+   Spójny z .nav-overflow (Navbar.css), ale dla całego dokumentu. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(129, 140, 248, 0.28) transparent;
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(129, 140, 248, 0.28);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(129, 140, 248, 0.45);
+  background-clip: padding-box;
+}
+
+/* ── Zaznaczenie tekstu w kolorach marki ── */
+::selection {
+  background: rgba(99, 102, 241, 0.30);
+  color: var(--text);
+}
+
+/* ── Bezpiecznik ruchu (globalny) ──
+   Gdy system użytkownika prosi o ograniczenie animacji, redukujemy je wszędzie.
+   Wcześniej respektowała to tylko jedna składowa (przełącznik języka). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

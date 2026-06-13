@@ -1,0 +1,367 @@
+/* --- KONTENER DODAWANIA (GÓRA) --- */
+.sv-add-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  padding: 30px;
+  border-radius: 20px;
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.sv-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sv-form-row {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+.sv-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.sv-input-group label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+/* POPRAWIONE LISTY ROZWIJANE I INPUTY */
+.sv-input-group input, 
+.sv-input-group select {
+  background: var(--surface-soft); /* Lekko ciemniejsze tło dla lepszego kontrastu */
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-height: 42px;
+  box-sizing: border-box;
+  color: var(--text);
+  font-size: 14px;
+  transition: border-color 0.2s;
+  color-scheme: dark; /* Wymusza ciemny motyw systemowy dla listy rozwijanej */
+}
+
+/* Selekt jako zwykłe pole (bez natywnego widżetu) — identyczna wysokość jak inputy */
+.sv-input-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 38px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+/* Stylizacja elementów wewnątrz listy select */
+.sv-input-group select option {
+  background-color: var(--surface-solid); /* Ciemne tło opcji */
+  color: var(--text);               /* Biały tekst opcji */
+}
+
+.sv-input-group input:focus, 
+.sv-input-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.sv-add-btn {
+  background: var(--brand-grad);
+  color: var(--on-accent);
+  border: none;
+  height: 42px;
+  padding: 0 26px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.32);
+  transition: filter 0.18s, transform 0.15s, box-shadow 0.18s;
+}
+
+.sv-add-btn:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(99, 102, 241, 0.45);
+}
+
+.sv-add-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* --- PLAN ZAJĘĆ (DÓŁ) --- */
+.sv-plan-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 30px;
+  animation: fadeInUp 0.5s ease-out both 0.1s;
+  position: relative;
+  z-index: 1;
+}
+
+.sv-day-section {
+  margin-bottom: 35px;
+}
+
+.sv-day-title {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.sv-day-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sv-item-row {
+  display: flex;
+  align-items: center;
+  background: var(--surface-soft);
+  border: 1px solid var(--glass-border);
+  padding: 16px 24px;
+  border-radius: 16px;
+  transition: 0.3s;
+  position: relative;
+}
+
+.sv-item-row:hover {
+  background: var(--surface-hover);
+  border-color: var(--primary);
+  transform: scale(1.005);
+}
+
+.sv-item-time {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  width: 90px;
+}
+
+.sv-item-main {
+  flex: 1;
+}
+
+.sv-item-name {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.sv-item-teacher {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.sv-item-room {
+  padding: 0 40px;
+  text-align: center;
+  border-left: 1px solid var(--glass-border);
+  border-right: 1px solid var(--glass-border);
+  margin: 0 20px;
+}
+
+.sv-item-room span {
+  display: block;
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.sv-item-room strong {
+  font-size: 16px;
+  color: var(--primary);
+}
+
+/* --- PRZYCISKI AKCJI (📝 🎯 ✕) --- */
+.sv-item-actions {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  z-index: 99;
+}
+
+.sv-btn-action, .sv-btn-delete {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--surface-hover);
+  color: var(--text);
+  cursor: pointer !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  pointer-events: auto !important;
+}
+
+.sv-btn-action:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.sv-btn-delete:hover {
+  background: #ff4d4d;
+  border-color: #ff4d4d;
+  transform: translateY(-2px);
+}
+
+.sv-empty-day {
+  padding: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  opacity: 0.5;
+}
+
+/* --- ANIMACJE --- */
+/* @keyframes fadeInUp — zdefiniowany globalnie w styles/Global.css */
+
+/* --- MOBILE --- */
+@media (max-width: 768px) {
+  .sv-form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sv-input-group--time,
+  .sv-input-group--room { flex: 1 1 auto; }
+  .sv-form-actions { justify-content: stretch; }
+  .sv-form-actions .sv-add-btn,
+  .sv-form-actions .sv-import-btn,
+  .sv-form-actions .sv-template-btn { flex: 1; justify-content: center; }
+  
+  .sv-item-row {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .sv-item-room {
+    border: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  
+  .sv-item-time {
+    width: auto;
+  }
+}
+
+.sv-form-actions {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* Wąskie pola godziny i sali — reszta szerokości idzie na przyciski akcji */
+.sv-input-group--time { flex: 0 0 130px; }
+.sv-input-group--room { flex: 0 0 190px; }
+
+.sv-add-card.is-editing {
+  border-color: var(--primary);
+  background: rgba(129, 140, 248, 0.1);
+  box-shadow: 0 0 20px rgba(129, 140, 248, 0.2);
+}
+
+.sv-cancel-btn {
+  background: transparent;
+  border: 1px solid var(--muted);
+  color: var(--muted);
+  padding: 0 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.sv-cancel-btn:hover {
+  border-color: #fff;
+  color: var(--text);
+}
+
+.sv-item-row.editing-now {
+  border-color: var(--primary);
+  background: rgba(129, 140, 248, 0.05);
+}
+
+.save-btn {
+  background: #10b981 !important;
+}
+/* ═══════════════════════════════════════════
+   IMPORT PLANU (CSV / ICS)
+═══════════════════════════════════════════ */
+.sv-import-bar {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.sv-import-btn, .sv-template-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border-radius: 12px; font-size: 13px; font-weight: 700; padding: 0 18px; height: 42px;
+  cursor: pointer; font-family: inherit;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  transition: background 0.15s, border-color 0.15s, transform 0.12s, box-shadow 0.15s;
+}
+.sv-import-btn i, .sv-template-btn i { color: var(--primary); font-size: 16px; }
+.sv-import-btn:hover, .sv-template-btn:hover {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+.sv-import-btn:focus-visible, .sv-template-btn:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.5); outline-offset: 2px;
+}
+
+/* Modal podglądu importu */
+.sv-modal-backdrop {
+  position: fixed; inset: 0; z-index: 1000; background: rgba(3,6,18,0.7);
+  backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center;
+  padding: 20px; animation: svFadeIn 0.15s ease-out;
+}
+@keyframes svFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.sv-import-modal {
+  width: min(600px, 100%); max-height: 88vh; overflow: auto;
+  background: var(--surface-solid); border: 1px solid var(--glass-border); border-radius: 20px;
+  padding: 26px; box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+}
+.sv-import-modal__title {
+  display: flex; align-items: center; gap: 9px; margin: 0 0 6px;
+  font-size: 18px; font-weight: 800; color: var(--text);
+}
+.sv-import-modal__title i { color: var(--primary); }
+.sv-import-modal__desc { font-size: 13.5px; color: var(--text-muted); margin: 0 0 18px; }
+.sv-preview-table-wrap {
+  border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden;
+}
+.sv-preview-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.sv-preview-table th {
+  text-align: left; padding: 9px 12px; background: var(--surface-soft);
+  color: var(--text-muted); font-weight: 700; font-size: 11.5px; text-transform: uppercase;
+}
+.sv-preview-table td { padding: 9px 12px; color: var(--text); border-top: 1px solid var(--border-soft); }
+.sv-preview-more { font-size: 12px; color: var(--text-muted); text-align: center; margin: 10px 0 0; }
+.sv-import-modal__actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }

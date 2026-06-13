@@ -1,0 +1,182 @@
+.profile-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: auto auto;
+  gap: 22px;
+}
+.profile-card--wide { grid-column: 1 / -1; }
+
+@media (max-width: 700px) {
+  .profile-grid { grid-template-columns: 1fr; }
+}
+
+.profile-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 28px;
+  backdrop-filter: blur(12px);
+}
+
+.profile-card__title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-faint);
+  margin: 0 0 20px;
+}
+
+/* ── Avatar ─────────────────────────────────────────────── */
+.profile-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.profile-avatar__img,
+.profile-avatar__initials {
+  width: 96px;
+  height: 96px;
+  border-radius: 24px;
+  border: 2px solid rgba(129,140,248,.4);
+  object-fit: cover;
+}
+
+.profile-avatar__initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--primary);
+  background: linear-gradient(135deg, rgba(99,102,241,.3), rgba(56,189,248,.15));
+}
+
+.profile-avatar__btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: rgba(99,102,241,.18);
+  border: 1px solid rgba(129,140,248,.3);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .18s;
+}
+.profile-avatar__btn:hover:not(:disabled) { background: rgba(99,102,241,.35); }
+.profile-avatar__btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.profile-avatar__hint {
+  font-size: 11px;
+  color: var(--text-faint);
+  margin: 0;
+  text-align: center;
+}
+
+.hidden { display: none; }
+
+/* ── Form ────────────────────────────────────────────────── */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-form--inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  align-items: end;
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .profile-form--inline { grid-template-columns: 1fr 1fr; }
+  .profile-form--inline .profile-btn { grid-column: 1 / -1; }
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profile-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.profile-input {
+  background: var(--surface-hover);
+  border: 1px solid rgba(129,140,248,.2);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color .18s;
+}
+.profile-input:focus { border-color: rgba(129,140,248,.6); }
+.profile-input--readonly { opacity: .5; cursor: default; }
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(99,102,241,.55), rgba(56,189,248,.3));
+  border: 1px solid rgba(129,140,248,.45);
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .18s;
+}
+.profile-btn:hover:not(:disabled) { background: linear-gradient(135deg, rgba(99,102,241,.75), rgba(56,189,248,.5)); }
+.profile-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Podpowiedź pod polem (np. że imię ustala administracja) */
+.profile-field__hint {
+  display: flex; align-items: center; gap: 6px;
+  margin: 6px 0 0; font-size: 12px; color: var(--text-muted);
+}
+.profile-field__hint i { font-size: 14px; }
+
+/* Eksport danych (RODO) */
+.profile-export__desc {
+  font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin: 0 0 16px;
+}
+.profile-btn--ghost {
+  background: var(--surface-soft);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+}
+.profile-btn--ghost:hover { border-color: rgba(129, 140, 248, 0.5); color: var(--text); }
+.profile-spin { animation: profileSpin 0.8s linear infinite; }
+@keyframes profileSpin { to { transform: rotate(360deg); } }
+
+/* Karta uczelni (edytowalna) */
+.profile-uni-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.profile-select {
+  flex: 1; min-width: 150px; cursor: pointer;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23a5b4fc' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+}
+.profile-select:disabled { opacity: 0.55; cursor: not-allowed; }
+.profile-select option { background: var(--surface-solid); color: var(--text); }
+.profile-uni-actions { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+.profile-uni-clear {
+  background: none; border: none; color: var(--text-muted); cursor: pointer;
+  font-size: 13px; display: inline-flex; align-items: center; gap: 5px; font-family: inherit;
+}
+.profile-uni-clear:hover { color: #fb7185; }
